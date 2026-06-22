@@ -8,13 +8,13 @@ services:
     ports: ["51774:1972","51504:51403"]
     volumes:
       - ./mcpserver/src:/opt/app
-      - ./iris.key:/tmp/iris.key
+      #- ./iris.key:/tmp/iris.key
     entrypoint:
       - /bin/bash
       - /opt/app/start-all.sh
-    command:
-      - --key
-      - /tmp/iris.key
+    #command:
+    #  - --key
+    #  - /tmp/iris.key
     environment:
       - TZ=JST-9
 
