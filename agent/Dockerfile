@@ -14,7 +14,7 @@ COPY --chown=${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} agent/iris.script .
 COPY --chown=${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} agent/src/ .
 
 # 製品版の場合、ベクトル検索の準備のため、ビルド時にキーコピー必要
-COPY --chown=${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} ../iris.key ${ISC_PACKAGE_INSTALLDIR}/mgr/iris.key
+#COPY --chown=${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} ../iris.key ${ISC_PACKAGE_INSTALLDIR}/mgr/iris.key
 
 USER ${ISC_PACKAGE_MGRUSER}
 
