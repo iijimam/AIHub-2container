@@ -1,0 +1,67 @@
+services:
+  mcpserver:
+    build:
+      context: .
+      dockerfile: mcpserver/Dockerfile
+    env_file:
+      - .env
+    ports: ["51774:1972","51504:51403"]
+    volumes:
+      - ./mcpserver/src:/opt/app
+      - ./iris.key:/tmp/iris.key
+    entrypoint:
+      - /bin/bash
+      - /opt/app/start-all.sh
+    command:
+      - --key
+      - /tmp/iris.key
+    environment:
+      - TZ=JST-9
+
+  agent:
+    build:
+      context: .
+      dockerfile: agent/Dockerfile
+    env_file:
+      - .env
+    ports: ["51775:1972","8001:8000"]
+    volumes:
+      - ./agent/src:/opt/app
+      - ./iris.key:/tmp/iris.key
+    command:
+      - --key
+      - /tmp/iris.key
+    environment:
+      - TZ=JST-9
+
+  wgagent:
+    image: containers.intersystems.com/intersystems/webgateway:2026.1
+    init: true
+    ports:
+      - 9995:80
+      #- 443:443
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
+    volumes:
+    - ./webgateway-agent:/webgateway-shared
+    # SSL有効化する場合は command 行のコメントを外します。
+    #   SSL有効化する場合は、webgateway ディレクトリ内にSSL用の証明書と秘密鍵を配置してください。
+    #   例）./webgateway/server.crt, ./webgateway/server.key
+    #command: ["--ssl"]
+
+  wgmcpserver:
+    image: containers.intersystems.com/intersystems/webgateway:2026.1
+    init: true
+    ports:
+      - 9996:80
+      #- 443:443
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
+    volumes:
+    - ./webgateway-mcpserver:/webgateway-shared
+    # SSL有効化する場合は command 行のコメントを外します。
+    #   SSL有効化する場合は、webgateway ディレクトリ内にSSL用の証明書と秘密鍵を配置してください。
+    #   例）./webgateway/server.crt, ./webgateway/server.key
+    #command: ["--ssl"]

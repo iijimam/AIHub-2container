@@ -1,0 +1,25 @@
+{
+    "intersystems.servers": {
+        "agent":{
+            "webServer": {
+                "host": "127.0.0.1",
+                "port": 9995,
+                "scheme": "http",
+            },
+            "username": "SuperUser"
+        },
+        "mcpserver":{
+            "webServer": {
+                "host": "127.0.0.1",
+                "port": 9996,
+                "scheme": "http",
+            },
+            "username": "SuperUser"
+        }
+    },
+    "objectscript.conn": {
+        "active": true,
+        "server": "agent",
+        "ns": "user"
+    }
+}

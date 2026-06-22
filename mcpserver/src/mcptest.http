@@ -1,0 +1,161 @@
+###
+# MCPのinitialize
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-03-26",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "vscode-rest-client",
+      "version": "0.1.0"
+    }
+  }
+}
+
+
+###
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+Mcp-Session-Id: 8212922d-8b75-4470-a519-fe827413308e
+
+{
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized",
+  "params": {}
+}
+
+
+###
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+Mcp-Session-Id:  d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list",
+  "params": {}
+}
+
+###
+### ここのツールリクエストはWebサーバ経由でとれる
+### Mcp-Session-Idはいらないらしい
+GET http://localhost:9992/mcp/meetingservice/v1/health
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+
+
+### hello
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "tools/call",
+  "params": {
+    "name": "mcp_meetingservice_hello",
+    "arguments": {}
+  }
+}
+
+###  取引先会社の営業担当者を取得
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "tools/call",
+  "params": {
+    "name": "mcp_meetingservice_GetAccountOwner",
+    "arguments": {
+      "custid": "C001"
+    }
+  }
+}
+
+### 取引先IDから取引先担当者情報を取得。
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "tools/call",
+  "params": {
+    "name": "mcp_meetingservice_GetCustomerContacts",
+    "arguments": {
+      "custid": "C001"
+    }
+  }
+}
+
+###  取引先会社のID（customer_id）から取引先顧客会社情報を取得（CRMにある情報のイメージ）
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "tools/call",
+  "params": {
+    "name": "mcp_meetingservice_GetCustomerInfo",
+    "arguments": {
+      "custid": "C001"
+    }
+  }
+}
+
+
+### 取引先会社IDから過去の問い合わせチケット情報を取得
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "tools/call",
+  "params": {
+    "name": "mcp_meetingservice_GetSupportTicket",
+    "arguments": {
+      "custid": "C001"
+    }
+  }
+}
+
+### 取引先会社のIDから議事録取得
+POST http://localhost:51504/mcp
+Accept: application/json, text/event-stream
+Content-Type: application/json;charset=utf-8
+Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "tools/call",
+  "params": {
+    "name": "mcp_meetingservice_GetMeetingMinutes",
+    "arguments": {
+      "custid": "C001"
+    }
+  }
+}

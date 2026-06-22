@@ -1,0 +1,14 @@
+set $namespace="%SYS"
+Do ##class(Security.Users).UnExpireUserPasswords("*")
+Do ##class(Config.NLS.Locales).Install("jpuw")
+
+// Embedded Python用にCallInサービスを有効化（現在の設定を取得）
+set st=##class(Security.Services).Get("%Service_CallIn",.pro)
+set pro("Enabled")=1
+// 修正登録
+set st=##class(Security.Services).Modify("%Service_CallIn",.pro)
+
+// ネームスペース移動
+set $namespace="USER"
+// クラス定義インポート
+do $System.OBJ.LoadDir("/opt/src/Demo","ck",,1)
