@@ -2,29 +2,29 @@
 
 1. Enter the API key in [.env](./.env).
 
-    This repogitory uses OpenAI. Please enter the your API key in [.env](./.env).
+    The repository uses OpenAI. Please enter the your API key in [.env](./.env).
 
-2. Build and Start the container.
+2. Build and Start the containers.
 
     ```
     docker compose up -d
     ```
 
-3. Run a test of Agen.
+3. Run the Agent test.
 
-    login to the agent container.
+    Log in to the agent container.
     ```
     docker exec -it aihub-2container-agent-1 bash
     ```
-    login to iris
+    Log in to iris
     ```
     iris session iris
     ```
-    run test method
+    Run the test method
     ```
     do ##class(Demo.Agent.ChatTest).TestChat()
     ```
-    You will recieve these error
+    You will receive the following error:
     ```
     USER>do ##class(Demo.Agent.ChatTest).TestChat()
 
@@ -34,3 +34,10 @@
     <THROW>TestChat+2^Demo.Agent.ChatTest.1 *%Exception.StatusException エラー <%AICore>McpError: MCP protocol error: Failed to add tool spec 'mcp:remote:http://mcpserver:51403/mcp/': Resolver error: MCP protocol handshake failed: Send message error Transport [rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<reqwest::async_impl::client::Client>>] error: unexpected server response: HTTP 403 Forbidden: Forbidden: Host header is not allowed, when send initia
     USER 2d1>q
     ```
+
+
+4. Test the MCP Server tools from the host.
+
+   You can use [mcptest.http](./mcpserver/src/mcptest.http) to send a request to the MCP server.
+
+   The request works correctly because it can use the hostname "localhost".

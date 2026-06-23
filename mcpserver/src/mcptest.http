@@ -45,14 +45,6 @@ Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
   "params": {}
 }
 
-###
-### ここのツールリクエストはWebサーバ経由でとれる
-### Mcp-Session-Idはいらないらしい
-GET http://localhost:9992/mcp/meetingservice/v1/health
-Accept: application/json, text/event-stream
-Content-Type: application/json;charset=utf-8
-
-
 ### Obtain the contact information for the sales representative at the client company
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
