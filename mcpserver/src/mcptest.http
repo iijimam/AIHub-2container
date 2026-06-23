@@ -36,7 +36,7 @@ Mcp-Session-Id: 8212922d-8b75-4470-a519-fe827413308e
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id:  d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
 
 {
   "jsonrpc": "2.0",
@@ -53,27 +53,11 @@ Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
 
 
-### hello
+### Obtain the contact information for the sales representative at the client company
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
-
-{
-  "jsonrpc": "2.0",
-  "id": 3,
-  "method": "tools/call",
-  "params": {
-    "name": "mcp_meetingservice_hello",
-    "arguments": {}
-  }
-}
-
-###  取引先会社の営業担当者を取得
-POST http://localhost:51504/mcp
-Accept: application/json, text/event-stream
-Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
 
 {
   "jsonrpc": "2.0",
@@ -87,11 +71,11 @@ Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
   }
 }
 
-### 取引先IDから取引先担当者情報を取得。
+### Retrieve Contact Information for a Business Partner Based on the Business Partner ID
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
 
 {
   "jsonrpc": "2.0",
@@ -105,11 +89,11 @@ Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
   }
 }
 
-###  取引先会社のID（customer_id）から取引先顧客会社情報を取得（CRMにある情報のイメージ）
+###  Retrieve customer company information based on the customer ID (customer_id) (similar to the information in the CRM)
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
 
 {
   "jsonrpc": "2.0",
@@ -124,11 +108,11 @@ Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
 }
 
 
-### 取引先会社IDから過去の問い合わせチケット情報を取得
+### Retrieve past inquiry ticket information based on the client company ID
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
 
 {
   "jsonrpc": "2.0",
@@ -142,11 +126,11 @@ Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
   }
 }
 
-### 取引先会社のIDから議事録取得
+### Retrieve Meeting Minutes Using a Business Partner's ID
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: d1c7ffd5-f8f7-4e0f-92de-5dcda120fe3a
+Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
 
 {
   "jsonrpc": "2.0",

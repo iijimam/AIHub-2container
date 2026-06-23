@@ -9,9 +9,6 @@ trap "echo Stopping MCP...; /opt/app/stop-mcp.sh" SIGTERM SIGINT
   until iris session IRIS -U %SYS "write 1 halt" >/dev/null 2>&1; do
     sleep 2
   done
-
-  echo "Creating foreign tables..."
-  /opt/app/create-foreigntable.sh
   
   echo "IRIS is ready. Starting MCP..."
   /opt/app/start-mcp.sh
