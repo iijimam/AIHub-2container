@@ -2,7 +2,7 @@
 
 1. Enter the API key in [.env](./.env).
 
-    The repository uses OpenAI. Please enter the your API key in [.env](./.env).
+    The repository uses OpenAI. Please enter your API key in [.env](./.env).
 
 2. Build and Start the containers.
 
@@ -35,6 +35,7 @@
     USER 2d1>q
     ```
 
+![](./Unable-to-connect-using-the-hostname.jpg)
 
 4. Test the MCP Server tools from the host.
 
