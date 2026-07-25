@@ -1,0 +1,102 @@
+22:00:47.046939 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34656 > f99e8a3794a1.51403: Flags [S], seq 4251397450, win 64240, options [mss 1460,sackOK,TS val 646575702 ecr 0,nop,wscale 10], length 0
+E..<.|@.@............`...g-J........X].........
+&..V.......
+
+22:00:47.047026 eth0  Out IP f99e8a3794a1.51403 > aihub-2container-agent-1.aihub-2container_default.34656: Flags [S.], seq 435243798, ack 4251397451, win 65160, options [mss 1460,sackOK,TS val 3236127189 ecr 646575702,nop,wscale 10], length 0
+E..<..@.@..............`..K..g-K....X].........
+..a.&..V...
+
+22:00:47.047091 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34656 > f99e8a3794a1.51403: Flags [.], ack 1, win 63, options [nop,nop,TS val 646575703 ecr 3236127189], length 0
+E..4.}@.@............`...g-K..K....?XU.....
+&..W..a.
+22:00:47.048839 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34656 > f99e8a3794a1.51403: Flags [P.], seq 1:298, ack 1, win 63, options [nop,nop,TS val 646575705 ecr 3236127189], length 297
+E..].~@.@............`...g-K..K....?Y~.....
+&..Y..a.POST /mcp/ HTTP/1.1
+accept: text/event-stream, application/json
+content-type: application/json
+host: mcpserver:51403
+content-length: 153
+
+{"jsonrpc":"2.0","id":0,"method":"initialize","params":{"capabilities":{},"clientInfo":{"name":"rmcp","version":"2.2.0"},"protocolVersion":"2025-11-25"}}
+22:00:47.048909 eth0  Out IP f99e8a3794a1.51403 > aihub-2container-agent-1.aihub-2container_default.34656: Flags [.], ack 298, win 64, options [nop,nop,TS val 3236127191 ecr 646575705], length 0
+E..4.U@.@..@...........`..K..g.t...@XU.....
+..a.&..Y
+22:00:47.233175 eth0  Out IP f99e8a3794a1.51403 > aihub-2container-agent-1.aihub-2container_default.34656: Flags [P.], seq 1:712, ack 298, win 64, options [nop,nop,TS val 3236127375 ecr 646575705], length 711
+E....V@.@..x...........`..K..g.t...@[......
+..b.&..YHTTP/1.1 200 OK
+content-type: text/event-stream
+cache-control: no-cache
+mcp-session-id: 6bac4469-0ef5-41df-a5eb-4f6123ecb939
+transfer-encoding: chunked
+date: Sat, 25 Jul 2026 13:00:47 GMT
+
+1A
+data: 
+id: 0
+retry: 3000
+
+
+1D7
+data: {"jsonrpc":"2.0","id":0,"result":{"protocolVersion":"2025-11-25","capabilities":{"tools":{"listChanged":true}},"serverInfo":{"name":"dynamic-service-manager","version":"2.0.0"},"instructions":"\nThis service provides access to tools discovered from remote IRIS MCP endpoints.\nTools are named using the format \"service_tool\" (e.g. \"test_Add\" for the Add tool\non the /mcp/test endpoint). Use iris_status to check connection state if tools appear missing.\n"}}
+
+
+0
+
+
+22:00:47.233321 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34656 > f99e8a3794a1.51403: Flags [.], ack 712, win 63, options [nop,nop,TS val 646575889 ecr 3236127375], length 0
+E..4..@.@............`...g.t..M....?XU.....
+&.....b.
+22:00:47.233788 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34656 > f99e8a3794a1.51403: Flags [F.], seq 298, ack 712, win 63, options [nop,nop,TS val 646575890 ecr 3236127375], length 0
+E..4..@.@............`...g.t..M....?XU.....
+&.....b.
+22:00:47.234097 eth0  Out IP f99e8a3794a1.51403 > aihub-2container-agent-1.aihub-2container_default.34656: Flags [F.], seq 712, ack 299, win 64, options [nop,nop,TS val 3236127376 ecr 646575890], length 0
+E..4.W@.@..>...........`..M..g.u...@XU.....
+..b.&...
+22:00:47.234210 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34656 > f99e8a3794a1.51403: Flags [.], ack 713, win 63, options [nop,nop,TS val 646575890 ecr 3236127376], length 0
+E..4..@.@............`...g.u..M....?XU.....
+&.....b.
+22:00:47.236297 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34660 > f99e8a3794a1.51403: Flags [S], seq 3260163449, win 64240, options [mss 1460,sackOK,TS val 2083399996 ecr 0,nop,wscale 10], length 0
+E..<.\@.@..1.........d...R%y........X].........
+|.)<.......
+
+22:00:47.236369 eth0  Out IP f99e8a3794a1.51403 > aihub-2container-agent-1.aihub-2container_default.34660: Flags [S.], seq 1569842414, ack 3260163450, win 65160, options [mss 1460,sackOK,TS val 1694773872 ecr 2083399996,nop,wscale 10], length 0
+E..<..@.@..............d]....R%z....X].........
+e.2p|.)<...
+
+22:00:47.236421 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34660 > f99e8a3794a1.51403: Flags [.], ack 1, win 63, options [nop,nop,TS val 2083399996 ecr 1694773872], length 0
+E..4.]@.@..8.........d...R%z]......?XU.....
+|.)<e.2p
+22:00:47.236621 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34660 > f99e8a3794a1.51403: Flags [P.], seq 1:286, ack 1, win 63, options [nop,nop,TS val 2083399996 ecr 1694773872], length 285
+E..Q.^@.@............d...R%z]......?Yr.....
+|.)<e.2pPOST /mcp/ HTTP/1.1
+accept: text/event-stream, application/json
+mcp-protocol-version: 2025-11-25
+mcp-session-id: 6bac4469-0ef5-41df-a5eb-4f6123ecb939
+content-type: application/json
+host: mcpserver:51403
+content-length: 54
+
+{"jsonrpc":"2.0","method":"notifications/initialized"}
+22:00:47.236632 eth0  Out IP f99e8a3794a1.51403 > aihub-2container-agent-1.aihub-2container_default.34660: Flags [.], ack 286, win 64, options [nop,nop,TS val 1694773872 ecr 2083399996], length 0
+E..4.)@.@.Yl...........d]....R&....@XU.....
+e.2p|.)<
+22:00:47.237503 eth0  Out IP f99e8a3794a1.51403 > aihub-2container-agent-1.aihub-2container_default.34660: Flags [P.], seq 1:82, ack 286, win 64, options [nop,nop,TS val 1694773873 ecr 2083399996], length 81
+E....*@.@.Y............d]....R&....@X......
+e.2q|.)<HTTP/1.1 202 Accepted
+content-length: 0
+date: Sat, 25 Jul 2026 13:00:47 GMT
+
+
+22:00:47.237676 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34660 > f99e8a3794a1.51403: Flags [.], ack 82, win 63, options [nop,nop,TS val 2083399997 ecr 1694773873], length 0
+E..4._@.@..6.........d...R&.]..@...?XU.....
+|.)=e.2q
+22:00:47.237987 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34660 > f99e8a3794a1.51403: Flags [F.], seq 286, ack 82, win 63, options [nop,nop,TS val 2083399998 ecr 1694773873], length 0
+E..4.`@.@..5.........d...R&.]..@...?XU.....
+|.)>e.2q
+22:00:47.238274 eth0  Out IP f99e8a3794a1.51403 > aihub-2container-agent-1.aihub-2container_default.34660: Flags [F.], seq 82, ack 287, win 64, options [nop,nop,TS val 1694773874 ecr 2083399998], length 0
+E..4.+@.@.Yj...........d]..@.R&....@XU.....
+e.2r|.)>
+22:00:47.238424 eth0  In  IP aihub-2container-agent-1.aihub-2container_default.34660 > f99e8a3794a1.51403: Flags [.], ack 83, win 63, options [nop,nop,TS val 2083399998 ecr 1694773874], length 0
+E..4.a@.@..4.........d...R&.]..A...?XU.....
+|.)>e.2r
+

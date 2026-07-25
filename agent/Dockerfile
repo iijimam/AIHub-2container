@@ -1,10 +1,15 @@
 # Agent 用の IRIS
 #ARG IMAGE=docker.iscinternal.com/docker-unreleased/intersystems/iris:2026.2.0AI.158.0
-ARG IMAGE=docker.iscinternal.com/docker-intersystems/intersystems/irishealth-community:2026.2.0AI.162.0
+ARG IMAGE=docker.iscinternal.com/docker-intersystems/intersystems/iris-community:2026.3.0AI.126.0
 FROM $IMAGE
 
 USER root
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends curl \
+ && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /opt/src
+
 
 RUN mkdir -p /opt/src/data /opt/src/logs \
  && chown -R ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/src

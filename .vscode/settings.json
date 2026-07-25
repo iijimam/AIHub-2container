@@ -18,7 +18,7 @@
         }
     },
     "objectscript.conn": {
-        "active": true,
+        "active": false,
         "server": "agent",
         "ns": "user"
     }

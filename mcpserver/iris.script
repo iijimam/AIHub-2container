@@ -14,8 +14,8 @@ set webName = "/mcp/meetingservice"
 set webProperties("DispatchClass") = "Demo.Service.MeetingService"
 set webProperties("NameSpace") = "USER"
 set webProperties("Enabled") = 1
-set webProperties("AutheEnabled") = 64
-set webProperties("MatchRoles")=":%All"
+set webProperties("AutheEnabled") = 32
+set webProperties("Type") = 18
 set st=##class(Security.Applications).Create(webName, .webProperties)
 kill webProperties
 

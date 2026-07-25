@@ -65,3 +65,11 @@ services:
     #   SSL有効化する場合は、webgateway ディレクトリ内にSSL用の証明書と秘密鍵を配置してください。
     #   例）./webgateway/server.crt, ./webgateway/server.key
     #command: ["--ssl"]
+
+  # MCPサーバのhostnameをlocalhostに強制設定するためのNginxプロキシを追加
+  #mcpproxy:
+  #  image: nginx:alpine
+  #  ports:
+  #    - "8080:80"
+  #  volumes:
+  #    - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
