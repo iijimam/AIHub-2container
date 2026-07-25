@@ -15,7 +15,7 @@
 
 ### ToolSet Configuration
 
-[Demo.Agent.ChatTest.cls](./agent/src/Demo/Agent/ChatTest.cls)
+[Demo.Agent.ToolSet.cls](./agent/src/Demo/Agent/ToolSet.cls)
 
 ```xml
 <MCP Name="RemoteServer">
@@ -27,26 +27,49 @@
 
 ## Expected Result
 
+The test method is implemented in: [Demo.Agent.ChatTest.cls](./agent/src/Demo/Agent/ChatTest.cls)
+
+The method executes:
+
 ```objectscript
 Set tools = agent.ToolManager.%Discover()
 ```
 
-returns the list of tools exposed by the MCP server.
+and then calls:
+
+```objectscript
+do agent.Chat(...)
+```
+
+`%Discover()` should return the list of tools exposed by the MCP server, allowing the chat request to proceed.
 
 ---
 
 ## Actual Result
 
+When executing:
+
+```objectscript
+do ##class(Demo.Agent.ChatTest).TestChat()
+```
+
+the method never returns.
+
+The test method contains both:
+
 ```objectscript
 Set tools = agent.ToolManager.%Discover()
 ```
 
-never returns.
+and
 
-`Agent.Chat()` also hangs and does not return.
+```objectscript
+do agent.Chat(...)
+```
+
+Based on packet capture, it appears the hang occurs during MCP discovery.
 
 ---
-
 # How to Run the Test
 
 ## 1. Configure API Key
