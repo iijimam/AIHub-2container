@@ -18,8 +18,8 @@
         }
     },
     "objectscript.conn": {
-        "active": false,
+        "active": true,
         "server": "agent",
-        "ns": "user"
+        "ns": "USER"
     }
 }

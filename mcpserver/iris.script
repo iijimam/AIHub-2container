@@ -14,8 +14,14 @@ set webName = "/mcp/meetingservice"
 set webProperties("DispatchClass") = "Demo.Service.MeetingService"
 set webProperties("NameSpace") = "USER"
 set webProperties("Enabled") = 1
-set webProperties("AutheEnabled") = 32
+set webProperties("AutheEnabled") = 96
+set webProperties("MatchRoles")=":%All"
 set webProperties("Type") = 18
+Set webProperties("CookiePath")="/"
+Set webProperties("Recurse")=1
+Set webProperties("WSGICallable")=""
+Set webProperties("WSGIDebug")=""
+Set webProperties("WSGIType")=""
 set st=##class(Security.Applications).Create(webName, .webProperties)
 kill webProperties
 

@@ -80,9 +80,13 @@ Be sure to return your response in the following JSON format.
 
 ClassMethod TestChat() As %Status
 {
-    Set agent = ..%New()
+    Set provider = ##class(%AI.Provider).Create("OpenAI", {"api_key": ($System.Util.GetEnviron("OPENAI_API_KEY"))})
+    Set agent = ..%New(provider)
     $$$ThrowOnError(agent.%Init())
 
+    set policy=##class(%AI.Policy.ConsoleAuth).%New()
+    set policy.AlwaysAllow=1
+    do agent.ToolManager.SetAuthPolicy(policy)
     Set tools = agent.ToolManager.%Discover()
     Write !,"=== registerd tools ===",!
     Do tools.%ToJSON()

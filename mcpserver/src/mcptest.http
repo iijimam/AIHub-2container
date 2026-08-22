@@ -3,6 +3,7 @@
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
+Authorization: SuperUser:SYS
 
 {
   "jsonrpc": "2.0",
@@ -23,7 +24,8 @@ Content-Type: application/json;charset=utf-8
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: 8212922d-8b75-4470-a519-fe827413308e
+Mcp-Session-Id: 433c2578-4819-430a-b89f-422fee745373
+Authorization: SuperUser:SYS
 
 {
   "jsonrpc": "2.0",
@@ -36,7 +38,8 @@ Mcp-Session-Id: 8212922d-8b75-4470-a519-fe827413308e
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
+Mcp-Session-Id: 433c2578-4819-430a-b89f-422fee745373
+Authorization: SuperUser:SYS
 
 {
   "jsonrpc": "2.0",
@@ -49,7 +52,8 @@ Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
 POST http://localhost:51504/mcp
 Accept: application/json, text/event-stream
 Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
+Mcp-Session-Id: 433c2578-4819-430a-b89f-422fee745373
+Authorization: SuperUser:SYS
 
 {
   "jsonrpc": "2.0",
@@ -57,79 +61,6 @@ Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
   "method": "tools/call",
   "params": {
     "name": "mcp_meetingservice_GetAccountOwner",
-    "arguments": {
-      "custid": "C001"
-    }
-  }
-}
-
-### Retrieve Contact Information for a Business Partner Based on the Business Partner ID
-POST http://localhost:51504/mcp
-Accept: application/json, text/event-stream
-Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
-
-{
-  "jsonrpc": "2.0",
-  "id": 4,
-  "method": "tools/call",
-  "params": {
-    "name": "mcp_meetingservice_GetCustomerContacts",
-    "arguments": {
-      "custid": "C001"
-    }
-  }
-}
-
-###  Retrieve customer company information based on the customer ID (customer_id) (similar to the information in the CRM)
-POST http://localhost:51504/mcp
-Accept: application/json, text/event-stream
-Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
-
-{
-  "jsonrpc": "2.0",
-  "id": 4,
-  "method": "tools/call",
-  "params": {
-    "name": "mcp_meetingservice_GetCustomerInfo",
-    "arguments": {
-      "custid": "C001"
-    }
-  }
-}
-
-
-### Retrieve past inquiry ticket information based on the client company ID
-POST http://localhost:51504/mcp
-Accept: application/json, text/event-stream
-Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
-
-{
-  "jsonrpc": "2.0",
-  "id": 4,
-  "method": "tools/call",
-  "params": {
-    "name": "mcp_meetingservice_GetSupportTicket",
-    "arguments": {
-      "custid": "C001"
-    }
-  }
-}
-
-### Retrieve Meeting Minutes Using a Business Partner's ID
-POST http://localhost:51504/mcp
-Accept: application/json, text/event-stream
-Content-Type: application/json;charset=utf-8
-Mcp-Session-Id: 71b1bdb8-43a9-4a6b-96f2-d5fc3ed669fc
-
-{
-  "jsonrpc": "2.0",
-  "id": 4,
-  "method": "tools/call",
-  "params": {
-    "name": "mcp_meetingservice_GetMeetingMinutes",
     "arguments": {
       "custid": "C001"
     }

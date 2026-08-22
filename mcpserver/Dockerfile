@@ -1,6 +1,6 @@
 # MCP Server 用の IRIS
 #ARG IMAGE=docker.iscinternal.com/docker-unreleased/intersystems/iris:2026.2.0AI.158.0
-ARG IMAGE=docker.iscinternal.com/docker-intersystems/intersystems/iris-community:2026.3.0AI.126.0
+ARG IMAGE=docker.iscinternal.com/docker-intersystems/intersystems/iris-community:2026.3.0AI.136.0
 FROM $IMAGE
 
 USER root

@@ -8,7 +8,10 @@ XData Definition [ MimeType = application/xml ]
         </Description>
 
         <MCP Name="RemoteServer">
-            <Remote URL="http://mcpserver:51403/mcp/"/>
+            <Remote URL="http://mcpserver:51403/mcp/"
+            AuthType="basic"
+            Username="SuperUser"
+            Password="SYS"/>
         </MCP>
     </ToolSet>
 }
