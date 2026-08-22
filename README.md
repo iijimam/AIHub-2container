@@ -1,94 +1,79 @@
-# AI Hub Remote MCP Discovery Hang Reproducer
+# AI Hub Remote MCP Two-Container Reproducer
+
+> [!NOTE]
+> The issue found in build 126 was fixed in build 136.
+> [The single-container configuration](https://github.com/iijimam/AIHub-1container) works correctly with build 136.
+>
+> However, Remote MCP does not work when the Agent and MCP Server run in separate containers.
 
 ## Environment
 
 ### Agent Container
 
-- InterSystems IRIS Community 2026.3.0AI.126.0
+- InterSystems IRIS Community 2026.3.0AI.136.0
 
 ### MCP Server Container
 
+- InterSystems IRIS Community 2026.3.0AI.136.0
 - iris-mcp-server
 - transport=http
+- host=0.0.0.0
 - port=51403
 - base_route=/mcp
 
-### ToolSet Configuration
+## ToolSet Configuration
 
 [Demo.Agent.ToolSet.cls](./agent/src/Demo/Agent/ToolSet.cls)
 
 ```xml
 <MCP Name="RemoteServer">
-    <Remote URL="http://mcpserver:51403/mcp/"/>
+    <Remote
+        URL="http://mcpserver:51403/mcp"
+        AuthType="basic"
+        Username="SuperUser"
+        Password="SYS"
+    />
 </MCP>
 ```
 
----
-
-## Expected Result
-
-The test method is implemented in: [Demo.Agent.ChatTest.cls](./agent/src/Demo/Agent/ChatTest.cls)
-
-The method executes:
-
-```objectscript
-Set tools = agent.ToolManager.%Discover()
-```
-
-and then calls:
-
-```objectscript
-do agent.Chat(...)
-```
-
-`%Discover()` should return the list of tools exposed by the MCP server, allowing the chat request to proceed.
+The same Basic authentication configuration works in the single-container configuration.
 
 ---
 
-## Actual Result
+# Expected Result
 
-When executing:
+The Agent should connect to the MCP Server and discover the MCP tools.
 
-```objectscript
-do ##class(Demo.Agent.ChatTest).TestChat()
+Expected flow:
+
+```text
+Agent
+  -> MCP list_tools
+  -> iris-mcp-server
+  -> wgproto GET /v1/services
+  -> IRIS
+  -> ToolManager.%Discover()
 ```
-
-the method never returns.
-
-The test method contains both:
-
-```objectscript
-Set tools = agent.ToolManager.%Discover()
-```
-
-and
-
-```objectscript
-do agent.Chat(...)
-```
-
-Based on packet capture, it appears the hang occurs during MCP discovery.
-
----
-# How to Run the Test
-
-## 1. Configure API Key
-
-Edit `.env` and provide your OpenAI API key.
-
-The repository uses OpenAI.
 
 ---
 
-## 2. Build and Start Containers
+# Actual Result
+
+The Agent does not connect to the MCP Server.
+
+`ToolManager.%Discover()` on the MCP Server is not called.
+
+---
+
+# How to Reproduce
+
+## 1. Start the Containers
 
 ```bash
 docker compose up -d
 ```
 
----
-
-## 3. Verify Connectivity from Agent Container
+## 2. Check Connectivity from the Agent Container
 
 Enter the Agent container:
 
@@ -96,232 +81,97 @@ Enter the Agent container:
 docker compose exec agent bash
 ```
 
-### DNS Resolution
+Check DNS:
 
 ```bash
 getent hosts mcpserver
 ```
 
-Example output:
+Example:
 
 ```text
 172.19.0.2 mcpserver
 ```
 
-### Network Connectivity
-
-```bash
-ping -c 1 mcpserver
-```
-
-Example output:
-
-```text
-1 packets transmitted, 1 received, 0% packet loss
-```
-
----
-
-## 4. Verify MCP Server Responses
-
-### Root Endpoint
-
-```bash
-curl -v http://mcpserver:51403/
-```
-
-Expected response:
-
-```text
-HTTP/1.1 404 Not Found
-```
-
-This confirms the HTTP server is reachable.
-
-### MCP Endpoint
-
-```bash
-curl -v http://mcpserver:51403/mcp
-```
-
-Expected response:
-
-```text
-HTTP/1.1 406 Not Acceptable
-Client must accept text/event-stream
-```
-
-### MCP Endpoint with SSE Accept Header
+Check the MCP endpoint:
 
 ```bash
 curl -v \
-  -H "Accept: text/event-stream" \
+  --connect-timeout 5 \
+  -H "Authorization: Basic U3VwZXJVc2VyOlNZUw==" \
+  -H "Accept: application/json, text/event-stream" \
   http://mcpserver:51403/mcp
 ```
 
-Expected response:
+Example response:
 
 ```text
+Connected to mcpserver (...) port 51403
+
 HTTP/1.1 400 Bad Request
-Session ID is required
+Bad Request: Session ID is required
 ```
 
-### MCP Endpoint with Fake Session ID
+This confirms that the Agent container can connect to the MCP Server container.
 
-```bash
-curl -v \
-  -H "Accept: text/event-stream" \
-  -H "Mcp-Session-Id: test" \
-  http://mcpserver:51403/mcp
-```
+## 3. Capture MCP Traffic
 
-Expected response:
-
-```text
-HTTP/1.1 404 Not Found
-Session not found
-```
-
-These responses indicate that the MCP server is reachable and operating normally.
-
----
-
-## 5. Capture Traffic on MCP Server
-
-Open a shell in the MCP Server container:
+In the MCP Server container:
 
 ```bash
 docker compose exec -u root mcpserver bash
 ```
-
-Start tcpdump:
-
 ```bash
-tcpdump -i any -s 0 -A port 51403 > /tmp/mcp.dump
+tcpdump -i any -nn 'port 51403 or port 1972'
 ```
 
-Leave tcpdump running.
+Leave `tcpdump` running.
 
----
+## 4. Run the Agent Test
 
-## 6. Run the Agent Test
-
-Open another terminal and enter the Agent container:
-
-```bash
-docker compose exec agent bash
-```
-
-Enter an IRIS session:
+In the Agent container:
 
 ```bash
 iris session iris
 ```
 
-Run the test:
+Run:
 
 ```objectscript
 do ##class(Demo.Agent.ChatTest).TestChat()
 ```
 
-Observed result:
+## 5. Check tcpdump
+
+No traffic is observed:
 
 ```text
-The call never returns.
+(no traffic on port 51403 or 1972)
 ```
 
 ---
 
-## 7. Analyze tcpdump
+# Result
 
-Stop tcpdump with Ctrl+C.
-
-Run:
-
-```bash
-grep -i "initialize" /tmp/mcp.dump
-```
-
-Observed:
-
-```json
-{"jsonrpc":"2.0","id":0,"method":"initialize", ... }
-{"jsonrpc":"2.0","method":"notifications/initialized"}
-```
-
-Run:
-
-```bash
-grep -i "initialized" /tmp/mcp.dump
-```
-
-Observed:
-
-```json
-{"jsonrpc":"2.0","method":"notifications/initialized"}
-```
-
-Run:
-
-```bash
-grep -i "tools/list" /tmp/mcp.dump
-```
-
-Observed:
+Direct communication from the Agent container works:
 
 ```text
-(no output)
+Agent container
+  -> curl
+  -> mcpserver:51403
+  -> OK
 ```
 
----
-
-# Packet Capture Summary
-
-The following MCP traffic is observed:
+However, communication from the AI Hub Agent does not start:
 
 ```text
-initialize
-  ->
-200 OK + session-id
-
-notifications/initialized
-  ->
-202 Accepted
+AI Hub Agent
+  X
+  -> mcpserver:51403
 ```
 
-However:
+No connection to port 51403 is observed, so the request does not reach `iris-mcp-server`.
 
-```text
-tools/list
-```
+As a result, there is also no wgproto traffic on port 1972 and IRIS `ToolManager.%Discover()` is not called.
 
-is never observed.
-
----
-
-# Conclusion
-
-The MCP server is reachable and responds correctly.
-
-Packet capture indicates that MCP initialization completes successfully:
-
-```text
-initialize -> OK
-initialized -> OK
-```
-
-However, the AI Hub MCP client never sends:
-
-```text
-tools/list
-```
-
-and discovery hangs indefinitely.
-
----
-
-# Attached Files
-
-- reproducer container
-- README.md
-- mcp.dump
+The same Remote MCP ToolSet configuration works correctly in [the single-container configuration](https://github.com/iijimam/AIHub-1container).
